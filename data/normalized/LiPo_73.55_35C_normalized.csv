@@ -1,0 +1,2 @@
+capacity,soc,current,final_voltage,timestamp_str,timestamp_num,currents,temperature,timestamp_num_norm,final_voltage_norm,capacity_norm,soc_norm,current_norm
+264.78,26.48,73.55,3.12,2020-07-06T11:54:00,129240,100mA,35C,0.7728740581270183,0.3793103448275863,0.22506455862977598,0.22512647554806076,0.0010225504261374254
