@@ -57,13 +57,15 @@ print(f"NiMH GA Tuner: Maximum sequence length = {max_len}", flush=True)
 def eval_individual(individual):
     units = int(individual[0])
     dropout_rate = individual[1]
+    # Explicitly clamp dropout_rate between 0.0 and 0.99
+    dropout_rate = max(0.0, min(dropout_rate, 0.99))
     model = Sequential()
     model.add(Masking(mask_value=0.0, input_shape=(max_len, X_train.shape[2])))
     model.add(LSTM(units, return_sequences=True))
     model.add(Dropout(dropout_rate))
     model.add(Dense(1, activation='linear'))
     model.compile(optimizer='adam', loss='mse', metrics=['mae'])
-    history = model.fit(X_train, y_train, epochs=5, batch_size=4, verbose=2,
+    history = model.fit(X_train, y_train, epochs=5, batch_size=4, verbose=1,
                         validation_data=(X_val, y_val))
     val_loss = history.history['val_loss'][-1]
     tf.keras.backend.clear_session()
@@ -90,7 +92,7 @@ toolbox.register("mate", tools.cxBlend, alpha=0.5)
 toolbox.register("select", tools.selTournament, tournsize=3)
 
 population = toolbox.population(n=10)
-NGEN = 5
+NGEN = 2
 ga_results = []
 for gen in range(NGEN):
     print(f"GA Generation {gen}", flush=True)

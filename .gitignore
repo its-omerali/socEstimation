@@ -1,0 +1,11 @@
+# Python bytecode and cache files
+__pycache__/
+
+# Virtual environment folders
+venv/
+Scripts/
+
+# Other directories you want to exclude
+share/
+include/
+Lib/
